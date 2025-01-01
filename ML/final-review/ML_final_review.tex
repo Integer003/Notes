@@ -1,0 +1,68 @@
+\documentclass{beamer}
+\usepackage{amsfonts,amsmath,oldgerm}
+\usetheme{sintef}
+\usepackage{xeCJK}
+\usepackage{geometry}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage{bbm}
+\usepackage{amsthm}
+
+\geometry{paperwidth=16cm, paperheight=9.45cm}
+
+\setCJKmainfont{STKaiti}
+
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+
+\titlebackground*{assets/background}
+
+\newcommand{\hrefcol}[2]{\textcolor{cyan}{\href{#1}{#2}}}
+
+\title{Machine Learning}
+\subtitle{2024 Fall, Final Review}
+% \course{Master's Degree in Computer Science}
+\author{Xiangchen Tian}
+\date{Jan 2, 2025}
+
+\begin{document}
+\maketitle
+
+\input{1svm.tex}
+\input{2decision_trees.tex}
+\input{3boosting.tex}
+\input{4pca.tex}
+\input{5nearest_neighbor_and_lsh.tex}
+\input{6metric_learning.tex}
+\input{7clustering.tex}
+\input{8simclr.tex}
+\input{9tsne.tex}
+\input{10robust_ml.tex}
+\input{11greedy_filling.tex}
+\input{12hyperparameter_optimization.tex}
+\input{13interpretability.tex}
+\input{14rectified_flow.tex}
+\input{15rope.tex}
+
+\begin{frame}[fragile]{}
+\framesubtitle{}
+\end{frame}
+
+\section{Personalization}
+
+\begin{frame}[fragile]{Adding images}
+\begin{columns}
+\begin{column}{0.7\textwidth}
+
+\end{column}
+\begin{column}{0.3\textwidth}
+\includegraphics[width=\textwidth]
+{assets/logo_RGB}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Summary}
+
+
+\backmatter
+\end{document}
