@@ -1,0 +1,31 @@
+\section{Metric Learning}
+
+\begin{frame}{Metric Learning}
+    \begin{itemize}
+        \item 核心思路：用neural network 训练出一个good feature space, 在此空间中有更好的nearest neighbor structure.
+        \item Example: 图片分类问题中旋转物体视角、改变颜色、图片伸缩裁剪可能不会改变类别，但在像素空间中这些点相距非常远。
+        \item 两种算法：NCA, LMNN
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{NCA}
+    \begin{itemize}
+        \item 希望学习一个函数$f$从原空间映射到有良好最近邻结构的feature space.
+        \item 定义原空间中两点$x_i, x_j$的相似度为：
+        \[
+        p_{ij} = \frac{\exp(-\|f(x_i) - f(x_j)\|^2)}{\sum_{k \neq i} \exp(-\|f(x_i) - f(x_k)\|^2)}, i \neq j
+        \]
+        \[
+            p_{ii} = 0
+        \]
+        \item 记$C_i = \left\{ j | c_i = c_j \right\} $为与$i$有相同label的下标集合，$P_i = \sum_{j\in C_i} p_{ij}$ 为$x_i$ 与其他与$x_i$有相同label的元素的总相似度。
+        \item Loss function: $L(A) = \sum_{i} P_i$，用于训练$f$模型中的参数。
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{LMNN}
+    \begin{itemize}
+        \item TODO
+    \end{itemize}
+\end{frame}

@@ -1,0 +1,38 @@
+\section{Robust Machine Learning}
+
+\begin{frame}{Robust Machine Learning}
+    思想：很多机器学习算法只要对输入数据进行微小的扰动，输出结果就完全错误了。希望能有一种方法能够让机器学习算法对输入数据的扰动具有一定的鲁棒性。
+
+    几种方法：
+    \begin{itemize}
+        \item FGSM: 当学习率趋于无穷时，先更新再投影到正方体内结果大概率是顶点上。
+        \item PGD: run gradient descent, and then project it back.
+    \end{itemize}
+    
+    详见 Yang Yuan slides。
+\end{frame}
+
+\begin{frame}{Robust Features are Important}
+    \begin{itemize}
+        \item 左图实验发现，从原始既包含Robust Features也包含Non-Robust Features的数据集上只提取Robust Features部分，并在获得的新数据集Robust dataset上进行训练,
+        可以得到类似的standard accuracy和robust accuracy（与在原始训练集上训练的结果相比）。
+        \item 这说明模型可以只从Robust Features中学习，而不必须学习Non-Robust Features。
+        \item Note: Robust Features 通常指人能看到的特征，因为人识别就是Robust的。
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{assets/rml.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Non-Robust Features are also Important}
+    \begin{itemize}
+        \item 右图实验：通过调整Non-Robust Features 让其向某错误的标签$c_\text{wrong}$偏移，然后构建一个新的数据集，这个数据集标签是按照$c_\text{wrong}$来标记的，图像是原图像加上Non-Robust Features的偏移之后的图像。
+        \item 由于 Robust Feature没有变化，人作为Robust Learner，仍然能够正确识别这些图像。
+        \item 但实验结果表明，模型用这个新数据集训练，在原始test set上测试 accuracy 差不多不变，这说明模型也可以只从Non-Robust Features中学习。
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{assets/rml.png}
+    \end{center}
+\end{frame}
+
+\input{11greedy_filling.tex}

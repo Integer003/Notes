@@ -1,0 +1,62 @@
+\section{t-SNE}
+
+\begin{frame}{t-distributed Stochastic Neighbor Embedding (a.k.a. t-SNE)}
+    t-SNE 是一种非线性降维算法，用于将高维数据 ($\left\{ x_1, x_2, \cdots, x_N \right\} $) 映射到低维空间 ($\left\{ y_1, y_2, \cdots, y_N \right\} $, 通常$y_i \in \mathbb{R}^{2}$ 或 $\mathbb{R}^{3}$, $i\in [N]$)。
+
+    思想：t-SNE 分为两个阶段。
+    \begin{itemize}
+        \item 首先对每对高维对象分配一个概率，要求相似的对象有更高的概率，不相似的对象分配较低的概率。
+        \item 然后，t-SNE 对低维空间定义一个类似的概率分布，并最小化与之前概率分布之间的 KL 散度。
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{SNE}
+    \begin{itemize}
+        \item SNE 是 t-SNE 的前身。
+        \item 给定 $N$ 个高维空间对象的集合 $\left\{ x_1, x_2, \cdots, xN \right\} $, 定义
+        \[
+            p_{j|i} = \frac{\exp(-\|x_i - x_j\|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(-\|x_i - x_k\|^2 / 2\sigma_i^2)}, \forall i \neq  j
+        \]
+        \[
+            p_{i|i} = 0
+        \]
+        显见 $ \sum_{j} p_{j|i} = 1$。
+        \item 解释：按照高斯分布对所有$x_i$周围的点进行加权得到$x_j$对$x_i$的重要性。
+        \item 定义 $p_{ij} = \frac{p_{j|i}+ p_{i|j}}{2N}$。
+        \item $\sigma_i$ 的选取：用bisection method求解满足 $\text{perp}(P_i) = 2^{H(P_i)} = $预先人为设定值的 $\sigma_i$，其中$H(P_i) = - \sum_{j} p_{j|i} \log_2(p_{j|i})$。
+        \item perplexity 可解释为一种平滑的邻居个数度量。$\text{perp}(P_i)$越大，$H(P_i)$越大，$p_{j|i}$分布越平均，$\sigma_i$越大，因此邻居越多。
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{SNE}
+    \begin{itemize}
+        \item 原始的SNE在低维空间也选取高斯分布进行距离度量。
+        \[
+            q_{ij} = \frac{\exp(-\|y_i - y_j\|^2)}{\sum_{k \neq i} \exp(-\|y_i - y_k\|^2)}, \forall i \neq  j
+        \]
+        其中$y_i$是$x_i$在低维空间中的对应点，$q_{ij}$是低维空间中相似度度量。
+        \item 这存在 crowding problem。解释：``There are several reasons why the pairwise distances in a two-dimensional map cannot faithfully
+        model distances between points on the ten-dimensional manifold.''
+        \begin{itemize}
+            \item 在10维空间中，可以有11个点彼此等距，但二维空间中无法忠实反映这种关系。
+            \item 以数据点$x_i$为中心，半径为$r$的球体在10维空间中体积按照$r^{10}$缩放，因此，如果数据点在10维空间中$x_i$周围的区域中大致均匀分布，如果我们试图用相同的高斯分布对二维地图中$x_i$到其他数据点的距离进行建模，数据点会非常拥挤：二维空间中可用于容纳中等距离数据点的区域与可用于容纳附近数据点的区域相比远远不够大。
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{t-SNE}
+    \begin{itemize}
+        \item 一种解决方案：``Mismatched Tails can Compensate for Mismatched Dimensionalities''
+        \item 这就是t-SNE的思想：在高维空间中，使用 Gaussian Distribution 求数据点之间相似性；而在低维空间中，使用 Student t-distribution 求数据点之间相似性。
+        \[
+            q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_{k \neq i} (1 + \|y_i - y_k\|^2)^{-1}}, \forall i \neq  j
+        \]
+        \item Student t-distribution 的尾部(正比于$\frac{1}{x^{2}}$)比高斯分布(正比于$\exp(-x^{2})$)更“重” ，因此等效于通过加重尾部概率分布缓解了 crowding problem。
+        \item 最终训练的loss function:
+        \[
+            C = \text{KL}(P||Q) = \sum_{i\neq j} p_{ij} \log \frac{p_{ij}}{q_{ij}}
+        \]
+        \item 优化方法：求$\frac{\partial C}{\partial y_i}$更新 $y_i$在低维空间中的位置。
+    \end{itemize}
+\end{frame}
+
