@@ -117,7 +117,7 @@
     \begin{itemize}
         \item 一个良定义的 kernel function 必须对应一个合理的feature space embedding $\phi$。自然的问题：什么样的 kernel function 是合理的？
         \begin{block}{Mercer's Theorem}
-            一个对称函数 $K:X\times X \to \mathbb{R}$ （对称：$K(\mathbf{x}, \mathbf{x'}) = K(\mathbf{x'}, \mathbf{x}), \forall \mathbf{x}, \mathbf{x'} \in X$）可实现为某特征空间中的内积，当且仅当$K$对应的 Gram matrix 是正定的。
+            一个对称函数 $K:X\times X \to \mathbb{R}$ （对称：$K(\mathbf{x}, \mathbf{x'}) = K(\mathbf{x'}, \mathbf{x}), \forall \mathbf{x}, \mathbf{x'} \in X$）可实现为某特征空间中的内积，当且仅当$K$对应的 Gram matrix 是半正定的。
         \end{block}
         \item Gram matrix $G: G_{ij} = K(\mathbf{x}_i, \mathbf{x}_j)$.
         \item 证明思路：($\Rightarrow $)straight forward，($\Leftarrow $)采用构造法，构造出一个特征空间和一个内积，使得这个内积对应的 kernel function 为 $K$。

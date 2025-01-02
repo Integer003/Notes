@@ -70,6 +70,19 @@
     
 \end{frame}
 
+\begin{frame}{Example 2: LSH for $\ell_p$ Distance in $\mathbb{R}^{d} $ space ($p \in (0, 2]$)}
+    对 $p$-stable distribution 的更详细解释：
+
+    \begin{itemize}
+        \item  $p$-stable distribution 定义为
+        \begin{center}
+            \includegraphics[width=0.6\textwidth]{assets/psd.png}
+        \end{center}
+        \item 按照如上定义，在计算 $\Pr_{h \in H}[h(p) = h(q)]$ 时遇到的 $r \cdot (p-q)$ 的分布等于 $\left\| p-q \right\|_p \cdot r_1 $，其中$r_1$ 服从一维 $p$-stable distribution。这样$\Pr_{h \in H}[h(p) = h(q)]$容易计算。
+    \end{itemize}
+    
+\end{frame}
+
 \begin{frame}{LSH Algorithm}
     算法：
     \begin{center}
@@ -85,7 +98,7 @@
     \end{block}
     证明思路：
     \begin{itemize}
-        \item 所有与$q$至少有一个$g_j$相等的点$p$ （换句话说，就是至少有一个hash表，$q$和$p$在同一个桶中，因为只有这样算法才可能report 这个点$p$） 的个数$\leqslant 2L$的概率$\geqslant \frac{1}{2}$
+        \item 所有与$q$至少有一个$g_j$相等、且不与 $q$ $cR$-near的点$p$ （换句话说，就是至少有一个hash表，$q$和$p$在同一个桶中，因为只有这样算法才可能report 这个点$p$） 的个数$\leqslant 2L$的概率$\geqslant \frac{1}{2}$
         \item 另一方面，若$p^{*} \in B(q, R)$，则 $p^{*}$ 与$q$至少有一个$g_j$相等的概率$\geqslant 1 - \frac{1}{\mathrm e}$。
         \item 若两者同时成立（概率$\geqslant \frac{1}{2}  - \frac{1}{\mathrm e}$），则只查询 $L' = 2L+1$个点时一定会返回一个$cR$-near的点。（详见原始论文）
     \end{itemize}

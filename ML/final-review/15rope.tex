@@ -8,7 +8,7 @@
         \[
             \begin{cases} q_m &= f_q(x_m, m) \\ k_n &= f_k(x_n, n) \\ q_n &= f_v(x_n, n) \end{cases}
         \]
-        \item attention weight: $a_{mn} = \frac{\exp(q_m^{T}k_n) / \sqrt d}{ \sum_{j=1}^{N}\exp(q_m^{T}k_j) / \sqrt d}$
+        \item attention weight: $a_{mn} = \frac{\exp(q_m^{T}k_n / \sqrt d)}{ \sum_{j=1}^{N}\exp(q_m^{T}k_j / \sqrt d)}$
         \item output embedding: $o_m = \sum_{n=1}^{N} a_{mn} v_n$
     \end{itemize}
 \end{frame}

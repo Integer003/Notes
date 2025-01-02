@@ -50,7 +50,7 @@
         \item 设函数 $F: \mathbb{R}^{n} \to [0, 1]$ 表示一个 deep network，$x\in \mathbb{R}^{n}$ 是输入，$x'\in \mathbb{R}^{n}$ 是一个 baseline input。
         \item 定义 
         \[
-        \text{IntegratedGrads}_i(x) := (x - x') \cdot \int_{\alpha=0}^{1} \frac{\partial F(x' + \alpha(x - x'))}{\partial x_i}  \mathrm{d}\alpha  
+        \text{IntegratedGrads}_i(x) := (x_i - x'_i) \cdot \int_{\alpha=0}^{1} \frac{\partial F(x' + \alpha(x - x'))}{\partial x_i}  \mathrm{d}\alpha  
         \]
         \item Completeness: 
         \[

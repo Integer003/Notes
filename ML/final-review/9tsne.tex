@@ -32,7 +32,7 @@
     \begin{itemize}
         \item 原始的SNE在低维空间也选取高斯分布进行距离度量。
         \[
-            q_{ij} = \frac{\exp(-\|y_i - y_j\|^2)}{\sum_{k \neq i} \exp(-\|y_i - y_k\|^2)}, \forall i \neq  j
+            q_{j|i} = \frac{\exp(-\|y_i - y_j\|^2)}{\sum_{k \neq i} \exp(-\|y_i - y_k\|^2)}, \forall i \neq  j
         \]
         其中$y_i$是$x_i$在低维空间中的对应点，$q_{ij}$是低维空间中相似度度量。
         \item 这存在 crowding problem。解释：``There are several reasons why the pairwise distances in a two-dimensional map cannot faithfully
@@ -49,8 +49,9 @@
         \item 一种解决方案：``Mismatched Tails can Compensate for Mismatched Dimensionalities''
         \item 这就是t-SNE的思想：在高维空间中，使用 Gaussian Distribution 求数据点之间相似性；而在低维空间中，使用 Student t-distribution 求数据点之间相似性。
         \[
-            q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_{k \neq i} (1 + \|y_i - y_k\|^2)^{-1}}, \forall i \neq  j
+            q_{j|i} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_{k \neq i} (1 + \|y_i - y_k\|^2)^{-1}}, \forall i \neq  j
         \]
+        \item 与高维空间一样，定义$q_{ij} = \frac{q_{j|i} + q_{i|j}}{2N}$
         \item Student t-distribution 的尾部(正比于$\frac{1}{x^{2}}$)比高斯分布(正比于$\exp(-x^{2})$)更“重” ，因此等效于通过加重尾部概率分布缓解了 crowding problem。
         \item 最终训练的loss function:
         \[
