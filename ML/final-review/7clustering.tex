@@ -31,7 +31,7 @@
 
 \begin{frame}{Spectral Clustering}
     \begin{itemize}
-        \item 思想：用 similarity graph $G$ 表示集合 $X = \left\{ x_1, x_2, \cdots, x_m \right\}$各点之间的关系。$G=(V, E)$，其中$V=\left\{ x_1, x_2, \cdots, x_m \right\} $, 每两个顶点之间连接一条权重为$W_{ij} = s(x_i, x_j)$的边，$s$是相似度度量，例如$s(x_i, x_j) = \exp\left( \frac{d(x_i, x_j)^{2}}{\sigma^{2}} \right) $
+        \item 思想：用 similarity graph $G$ 表示集合 $X = \left\{ x_1, x_2, \cdots, x_m \right\}$各点之间的关系。$G=(V, E)$，其中$V=\left\{ x_1, x_2, \cdots, x_m \right\} $, 每两个顶点之间连接一条权重为$W_{ij} = s(x_i, x_j)$的边，$s$是相似度度量，例如$s(x_i, x_j) = \exp\left( - \frac{d(x_i, x_j)^{2}}{\sigma^{2}} \right) $
         \item Clustering问题可表述为：希望找到一种partition，同一part各点之间边权重较大，不同part各点之间边权重较小。
         \item 最小化 $Cut(C_1, C_2, \cdots, C_k) = \sum_{i=1}^{k} \sum_{r \in C_i, s \notin C_i} W_{rs}$ 经常会将单独一个点作为一个part。
         \item 解决办法：最小化 $RatioCut(C_1, C_2, \cdots, C_k) = \sum_{i=1}^{k} \frac{\sum_{r \in C_i, s \notin C_i} W_{rs}}{|C_i|}$，权衡part大小和part间边权重。

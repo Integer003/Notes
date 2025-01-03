@@ -36,7 +36,7 @@
 \end{frame}
 
 \begin{frame}{Practical Algorithms 1}
-    由于使用上述定理提供的方法求low degree approximate function $h$的复杂度较高，实际中采用以下几种算法：
+    由于使用上述定理提供的方法求low degree approximate function $h$要求已知决策树内部结构，但实际中决策树是黑箱，只能通过多次输入查看输出得到决策树的信息。实际中采用以下几种采样算法：
     \begin{itemize}
         \item LMN: 设$T$对应布尔函数$f$，均匀采样$m$个$f$ 定义域内的点$\left\{ x_i, i \in [m] \right\} $，计算 $f(x_i)$，对每个$|S| \leqslant \log(s / \epsilon)$的 $S$ 估计傅立叶系数$\hat{f}(S)\approx \frac{1}{m} \sum_{i=1}^{m} f(x_i) \chi _S(x_i)$。
         最后返回
